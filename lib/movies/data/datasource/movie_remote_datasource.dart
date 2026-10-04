@@ -1,12 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:movies/core/error/exceptions.dart';
+import 'package:movies/core/network/api_constance.dart';
 import 'package:movies/core/network/error_message_model.dart';
 import 'package:movies/movies/data/models/movies_model.dart';
 
-class MovieRemoteDatasource {
 
+
+abstract class BaseMovieRemoteDatasource{
+   Future<List<MoviesModel>> getNowPlayingMovies();
+   Future<List<MoviesModel>> getPopularMovies();
+   Future<List<MoviesModel>> getTopRatedMovies();
+}
+
+class MovieRemoteDatasource extends BaseMovieRemoteDatasource{
+
+  @override
   Future<List<MoviesModel>> getNowPlayingMovies()async{
-   final response =  await Dio().get("https://api.themoviedb.org/3/movie/now_playing?api_key=d98b7013372fb44db9f8d924ada27662");
+   final response =  await Dio().get(ApiConstance.nowPlayingMoviesPath);
 
    if(response.statusCode == 200)
    {
@@ -18,4 +28,19 @@ class MovieRemoteDatasource {
    }
 
   }
+
+  @override
+  Future<List<MoviesModel>> getPopularMovies() {
+    // TODO: implement getPopularMovies
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<MoviesModel>> getTopRatedMovies() {
+    // TODO: implement getTopRatedMovies
+    throw UnimplementedError();
+  }
+
+
+
 }
