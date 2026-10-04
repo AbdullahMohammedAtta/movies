@@ -30,17 +30,34 @@ class MovieRemoteDatasource extends BaseMovieRemoteDatasource{
   }
 
   @override
-  Future<List<MoviesModel>> getPopularMovies() {
-    // TODO: implement getPopularMovies
-    throw UnimplementedError();
+  Future<List<MoviesModel>> getPopularMovies() async{
+    final response =  await Dio().get(ApiConstance.popularMoviesPath);
+
+    if(response.statusCode == 200)
+    {
+      return List<MoviesModel>.from((response.data["results"] as List).map((e) => MoviesModel.fromJson(e)));
+    }
+
+    else{
+      throw ServerException(errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+
   }
 
   @override
-  Future<List<MoviesModel>> getTopRatedMovies() {
-    // TODO: implement getTopRatedMovies
-    throw UnimplementedError();
-  }
+  Future<List<MoviesModel>> getTopRatedMovies() async{
+    final response =  await Dio().get(ApiConstance.topRatedPath);
 
+    if(response.statusCode == 200)
+    {
+      return List<MoviesModel>.from((response.data["results"] as List).map((e) => MoviesModel.fromJson(e)));
+    }
+
+    else{
+      throw ServerException(errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+
+  }
 
 
 }
