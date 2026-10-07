@@ -16,10 +16,11 @@ class MoviesModel extends Movie {
       id: json['id'],
       title: json["title"],
       backdropPath: json["backdrop_path"],
-      genderId: List<int>.from(json["genderId"].map((e)=> e)),
+      genderId: List<int>.from(json["gender_ids"].map((e)=> e)),
       overview: json["overview"],
-      voteAverage: json["voteAverage"],
-      releaseDate: json["releaseDate"],
+      // TODO : CHECK This
+      voteAverage: json["vote_average"],
+      releaseDate: json["release_date"],
     );
   }
 }
